@@ -916,14 +916,15 @@
 @media(max-width:420px){.sb-login{padding:24px 20px}.sb-login h1{font-size:21px}}
 </style><style>
 #sbAuthMessage.sb-success,#sbPasswordStatus.sb-success{color:#047857;background:#ecfdf5;border:1px solid #a7f3d0;padding:12px;border-radius:10px}
-.sb-password-details{margin:16px 0;border:1px solid #e2e8f0;border-radius:10px;padding:12px}.sb-password-details summary{cursor:pointer;font-weight:600}
+.sb-password-details{margin:16px 0;border:1px solid #e2e8f0;border-radius:10px;padding:12px}.sb-password-details[hidden]{display:none}
 #sbChangePasswordForm{max-width:420px;margin-top:12px}#sbChangePasswordForm label{display:block;margin:10px 0 5px}#sbChangePasswordForm input{display:block;width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px}#sbChangePasswordButton{margin-top:14px}#sbPasswordStatus{margin-top:10px;overflow-wrap:anywhere;color:#b45309}
 </style></head>
 <body><div id="sbAuthGate"><div class="sb-login">
 <span style="color:#6366f1;font-weight:700;font-size:12px;letter-spacing:1px">AI JOB HUNTING COACH</span>
 <h1 id="sbAuthTitle">登录你的求职管理空间</h1><p>面向求职者的个人求职管理与面试训练工具，覆盖「投递追踪 → 面试准备 → 真实复盘 → 数据洞察」全流程。</p>
-<form id="sbLoginForm" name="ajhc-account-login" autocomplete="on"><label for="sbEmail">邮箱</label><input id="sbEmail" name="email" type="email" autocomplete="section-ajhc-account username" autocapitalize="none" spellcheck="false" required placeholder="输入账号邮箱">
-<label for="sbPassword">密码</label><input id="sbPassword" name="password" type="password" autocomplete="section-ajhc-account current-password" required placeholder="输入账号密码">
+<form id="ajhcProviderCredentials" autocomplete="off" onsubmit="return false" hidden></form>
+<form id="sbLoginForm" name="ajhc-account-login" autocomplete="on"><label for="sbEmail">邮箱</label><input id="sbEmail" name="ajhc_account_email" type="email" autocomplete="section-ajhc-account username" autocapitalize="none" spellcheck="false" required placeholder="输入账号邮箱">
+<label for="sbPassword">密码</label><input id="sbPassword" name="ajhc_account_password" type="password" autocomplete="section-ajhc-account current-password" required placeholder="输入账号密码">
 <div id="sbConfirmWrap" hidden><label for="sbPasswordConfirm">确认密码</label><input id="sbPasswordConfirm" name="password_confirmation" type="password" autocomplete="section-ajhc-account new-password" disabled placeholder="再次输入密码"></div>
 <p id="sbSignupHint" hidden>密码至少 8 位。提交后请按提示完成邮箱验证。</p>
 <button class="btn" id="sbLoginButton" type="submit">登录</button></form>
@@ -1145,7 +1146,7 @@
           </div>
           <div class="sub-h" style="margin-top:14px;">经历版本（可多份；技能 / 目标岗位可不同）</div>
           <div id="resumeMgr"></div>
-          <div class="add-row"><input id="newResumeName" placeholder="新建版本名称，如 主简历 / 外企版 / 偏数据">
+          <div class="add-row"><input id="newResumeName" name="ajhc_resume_version_title" type="text" autocomplete="off" data-lpignore="true" data-1p-ignore="true" placeholder="新建版本名称，如 主简历 / 外企版 / 偏数据">
             <button class="btn sm" onclick="newResume()">＋ 新建</button></div>
           <div id="resumeEditor" style="display:none; border:1px solid var(--line); border-radius:10px; padding:14px; margin-top:10px;">
             <div class="row2">
@@ -1180,8 +1181,8 @@
                 <select id="aiVendor" onchange="onAiVendorChange()"></select></div>
               <div><label>模型</label><input id="aiModel" placeholder="如 ep-xxxx（豆包接入点）/ deepseek-chat" oninput="autoSaveAiCfg();onAiModelInput();" onchange="autoSaveAiCfg()"></div>
             </div>
-            <div style="margin-top:8px;"><label>API Base URL</label><input id="aiBase" name="ajhc_provider_endpoint" autocomplete="off" data-lpignore="true" data-1p-ignore placeholder="https://.../v1" style="width:100%" oninput="autoSaveAiCfg()" onchange="autoSaveAiCfg()"></div>
-            <div style="margin-top:8px;"><label>API Key</label><input id="aiKey" name="ajhc_provider_api_key" data-lpignore="true" data-1p-ignore type="password" placeholder="sk-..." style="width:100%" autocomplete="new-password" oninput="autoSaveAiCfg()" onchange="autoSaveAiCfg()"></div>
+            <div style="margin-top:8px;"><label>API Base URL</label><input id="aiBase" placeholder="https://.../v1" style="width:100%" oninput="autoSaveAiCfg()" onchange="autoSaveAiCfg()" type="url" name="ajhc_ai_endpoint" autocomplete="off" autocapitalize="none" spellcheck="false" data-lpignore="true" data-1p-ignore="true" form="ajhcProviderCredentials"></div>
+            <div style="margin-top:8px;"><label>API Key</label><input id="aiKey" placeholder="sk-..." style="width:100%" oninput="autoSaveAiCfg()" onchange="autoSaveAiCfg()" type="password" name="ajhc_ai_access_key" autocomplete="off" autocapitalize="none" spellcheck="false" data-lpignore="true" data-1p-ignore="true" form="ajhcProviderCredentials"></div>
             <div class="tip-line">模型名规则：火山引擎方舟需填你创建的<strong>推理接入点 ID</strong>（如 ep-abc123）；其他厂商通常直接填模型名。密钥保存在本机当前账号缓存中，不参与云端同步；请求 AI 时会发送给你配置的服务商；调用失败时自动回退脚本逻辑。</div>
             <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
               <button class="btn sm" onclick="saveAiCfg()">保存 AI 配置</button>
@@ -1198,8 +1199,8 @@
               <select id="aiVisionVendor" onchange="onAiVisionVendorChange()"></select></div>
             <div><label>视觉模型</label><input id="aiVisionModel" placeholder="如 ep-xxxx / gpt-4o-mini" oninput="autoSaveAiCfg();onAiModelInput();" onchange="autoSaveAiCfg()"></div>
           </div>
-          <div style="margin-top:8px;"><label>视觉 API Base URL</label><input id="aiVisionBase" placeholder="https://.../v1" style="width:100%" oninput="autoSaveAiCfg()" onchange="autoSaveAiCfg()"></div>
-          <div style="margin-top:8px;"><label>视觉 API Key</label><input id="aiVisionKey" type="password" placeholder="sk-..." style="width:100%" autocomplete="new-password" oninput="autoSaveAiCfg()" onchange="autoSaveAiCfg()"></div>
+          <div style="margin-top:8px;"><label>视觉 API Base URL</label><input id="aiVisionBase" placeholder="https://.../v1" style="width:100%" oninput="autoSaveAiCfg()" onchange="autoSaveAiCfg()" type="url" name="ajhc_vision_endpoint" autocomplete="off" autocapitalize="none" spellcheck="false" data-lpignore="true" data-1p-ignore="true" form="ajhcProviderCredentials"></div>
+          <div style="margin-top:8px;"><label>视觉 API Key</label><input id="aiVisionKey" placeholder="sk-..." style="width:100%" oninput="autoSaveAiCfg()" onchange="autoSaveAiCfg()" type="password" name="ajhc_vision_access_key" autocomplete="off" autocapitalize="none" spellcheck="false" data-lpignore="true" data-1p-ignore="true" form="ajhcProviderCredentials"></div>
           <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
             <button class="btn sm" onclick="saveVisionCfg()">保存视觉配置</button>
             <button class="btn sm ghost" onclick="testVisionCfg()">🔌 测试视觉连接</button>
@@ -1221,9 +1222,9 @@
     <button class="btn sm" id="gistConnectBtn" onclick="gistConnect()">立即同步</button>
     <button class="btn sm ghost" onclick="gistDisconnect()">暂停自动同步</button>
     <button class="btn sm ghost" onclick="AJHCCloud.logout()">退出账号</button>
+    <button class="btn sm ghost" id="sbPasswordToggle" type="button" aria-expanded="false" aria-controls="sbPasswordDetails">修改密码</button>
   </div>
-<details id="sbPasswordDetails" class="sb-password-details">
-<summary>修改密码</summary>
+<div id="sbPasswordDetails" class="sb-password-details" role="region" aria-labelledby="sbPasswordToggle" hidden>
 <form id="sbChangePasswordForm" autocomplete="on">
 <label for="sbCurrentPassword">当前密码</label><input id="sbCurrentPassword" name="account_current_password" type="password" autocomplete="section-ajhc-change current-password" required placeholder="输入当前登录密码">
 <label for="sbChangeNewPassword">新密码</label><input id="sbChangeNewPassword" name="account_new_password" type="password" autocomplete="section-ajhc-change new-password" minlength="8" required placeholder="至少 8 位">
@@ -1231,7 +1232,7 @@
 <button class="btn sm" id="sbChangePasswordButton" type="submit">保存新密码</button>
 <p id="sbPasswordStatus" role="status" aria-live="polite"></p>
 </form>
-</details>
+</div>
   <p id="gistStatus" role="status" style="overflow-wrap:anywhere;"></p>
 </div>
         <!-- INDEX12_BACKUP_UI_BEGIN: separate from the unmodified Gist controls -->
@@ -7336,7 +7337,7 @@ function toggleRecord(){
   try{ r.start(); _rec=r; _recActive=true; btn.textContent='⏹ 停止录入'; btn.classList.add('rec-on'); toast('开始实时录入（对着麦克风说话）'); }catch(e){ toast('无法启动语音识别：'+e.message); _recActive=false; }
 }
 </script>
-<script>/* AJHC Supabase v3: verified confirmation, recovery and password change. */
+<script>/* AJHC Supabase v5: resume-name autofill hints and account action layout. */
 window.AJHCCloud = (() => {
   const project='liglkvhqzgmjwkcwejjt';
   const url='https://'+project+'.supabase.co';
@@ -7552,7 +7553,13 @@ window.AJHCCloud = (() => {
   }
   async function initAuth(){
     clearWrongAutofill();setTimeout(clearWrongAutofill,300);setTimeout(clearWrongAutofill,1200);
-    $('sbEmail').addEventListener('change',clearWrongAutofill);
+    for(const event of ['input','change','blur'])$('sbEmail').addEventListener(event,clearWrongAutofill);
+    // Provider credentials are configuration, not account passwords. Keep
+    // them visually masked without password-field heuristics where supported.
+    for(const id of ['aiKey','aiVisionKey']){
+      const input=$(id);
+      if(window.CSS?.supports('-webkit-text-security','disc')){input.style.webkitTextSecurity='disc';input.type='text';}
+    }
     $('sbAuthToggle').onclick=()=>{if(!authBusy)setMode(mode==='login'?'signup':'login');};
     $('sbForgot').onclick=()=>{if(!authBusy){$('sbRecoverEmail').value=$('sbEmail').value;setMode('forgot');}};
     $('sbBackLogin').onclick=()=>{if(!authBusy){recovery=null;$('sbNewPasswordForm').reset();setMode('login');}};
@@ -7601,11 +7608,20 @@ window.AJHCCloud = (() => {
         else failure(e);
       }finally{setBusy(false);}
     });
+    $('sbPasswordToggle').onclick=()=>{
+      if(sb.passwordBusy)return;
+      const panel=$('sbPasswordDetails'),button=$('sbPasswordToggle');
+      panel.hidden=!panel.hidden;button.setAttribute('aria-expanded',String(!panel.hidden));
+      if(!panel.hidden)$('sbCurrentPassword').focus();
+      else{$('sbChangePasswordForm').reset();$('sbPasswordStatus').textContent='';$('sbPasswordStatus').classList.remove('sb-success');}
+    };
     $('sbChangePasswordForm').addEventListener('submit',submitPasswordChange);
     $('sbResetLogin').onclick=()=>{clearSession();location.reload();};
     if(hasCallback){await handleCallback();return;}
-    try{const raw=window.sessionStorage.getItem(authKey)||window.localStorage.getItem(authKey);if(raw){sb.session=JSON.parse(raw);setBusy(true);await start();}}
-    catch(e){failure(e);}finally{setBusy(false);}
+    // Opening this document never restores a session or starts authentication.
+    // Keep other tabs' sessions and account caches intact; only an explicit form
+    // submission can call start(). Email links above only verify their own action.
+    setBusy(false);
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initAuth,{once:true});else initAuth();
   window.addEventListener('storage',e=>{
