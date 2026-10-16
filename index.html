@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- build: AJHC_PROD_Supabase_v11 (remove selected labels and optimize monthly chart spacing) -->
+<!-- build: AJHC_PROD_Supabase_v13 (autosave and collapse active item when switching cards) -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -944,6 +944,28 @@
 .kl-drag-handle{display:inline-flex;align-items:center;justify-content:center;width:18px;flex-shrink:0;color:#aea3c8;cursor:grab;font-size:17px;user-select:none}.kl-node .kl-twisty{padding:10px 4px;width:23px}
 </style><style id="ajhcV9Styles">
 .ins-legend{display:inline-flex;align-items:center;gap:6px;margin:0 8px 8px 0;padding:4px 8px;border:1px solid #e7e8f0;border-radius:99px;background:#fff;color:#52556b;font:inherit;font-size:11px;cursor:pointer}.ins-legend[aria-pressed="false"]{opacity:.45;text-decoration:line-through}.ins-series-hidden{display:none!important}.ind-h-axis{display:grid;grid-template-columns:minmax(90px,1fr) 3fr;gap:12px;padding:6px 0;color:#7b8095;font-size:10px}.ind-h-wrap{display:flex;flex-direction:column;gap:9px}.ind-h-row{display:grid;grid-template-columns:minmax(90px,1fr) 3fr 42px;gap:12px;align-items:center}.ind-h-name{font-size:12px;overflow-wrap:anywhere}.ind-h-row .track{height:14px;background:#f0eef8;border-radius:99px;overflow:hidden}.ind-h-row .fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#6366f1,#a78bfa)}.ind-h-value{font-size:12px;font-weight:700;color:#5140ae;text-align:right}.combo-x .xlab small{display:block;font-size:9px;color:#10a273;white-space:nowrap}.combo-x .xlab{line-height:1.45}
+</style>
+
+<style id="kl-category-style-option3">
+/* 分类样式方案 3：紫色主分类 + 白底描边子分类，真题库与复盘报告共用。 */
+.kl-library #klTree > .kl-node[data-kl-drag-type="category"]{
+  margin:8px 0 5px;padding:2px 5px;border:1px solid #7156e8;border-radius:11px;
+  background:linear-gradient(135deg,#7156e8,#8767ed);color:#fff;
+  box-shadow:0 2px 7px rgba(91,67,190,.15);
+}
+.kl-library #klTree > .kl-node[data-kl-drag-type="category"] .kl-node-label,
+.kl-library #klTree > .kl-node[data-kl-drag-type="category"] .kl-twisty{color:#fff;font-weight:700}
+.kl-library #klTree > .kl-node[data-kl-drag-type="category"] .kl-node-label{padding:10px 7px}
+.kl-library #klTree > .kl-node[data-kl-drag-type="category"] .kl-node-label small{color:rgba(255,255,255,.82);font-weight:600}
+.kl-library #klTree > .kl-node[data-kl-drag-type="category"] .kl-drag-handle{color:#eee9ff}
+.kl-library #klTree > .kl-node[data-kl-drag-type="category"].active{background:linear-gradient(135deg,#5b43c9,#7454dc);box-shadow:0 0 0 2px rgba(113,86,232,.18),0 3px 9px rgba(91,67,190,.2)}
+.kl-library .kl-child .kl-node{margin:5px 0;padding:0 4px;border:1px solid #ded7f2;border-radius:9px;background:#fff;transition:border-color .15s,background .15s,box-shadow .15s}
+.kl-library .kl-child .kl-node:hover{border-color:#a998e8;background:#faf9ff}
+.kl-library .kl-child .kl-node.active{border-color:#8066e4;background:#f3efff;color:#5b43c9;box-shadow:inset 3px 0 0 #8066e4}
+.kl-library .kl-child .kl-node-label{padding:9px 7px;font-size:12px}
+.kl-library .kl-child .kl-node.active .kl-node-label{font-weight:650}
+.kl-library .kl-child .kl-node.active small{color:#7156e8}
+@media(max-width:768px){.kl-library #klTree > .kl-node[data-kl-drag-type="category"]{margin-top:7px}.kl-library .kl-child .kl-node{margin:6px 0}}
 </style>
 </head>
 <body><div id="sbAuthGate"><div class="sb-login">
@@ -2993,6 +3015,10 @@ const REPLY_STAGES=['笔试/测评','面试中','Offer','拒信/放弃'];
 function jobReachedReply(j){ return REPLY_STAGES.includes(j.stage) || (j.timeline||[]).some(e=>REPLY_STAGES.includes(e.stage)); }
 function isParked(j){ return !!(j && j.parked); }
 function isNoFeedback(j){ return j.stage==='已投递' && !jobReachedReply(j); }
+function isAwaitingOver3(j,today=todayStr()){
+  const applied=String(applyDateOf(j)||'');
+  return !!j && j.stage==='已投递' && !isParked(j) && /^\d{4}-\d{2}-\d{2}$/.test(applied) && daysBetween(applied,today)>3;
+}
 function parkJob(id){ const j=jobs.find(x=>x.id===id); if(!j) return; j.parked=true; saveJobsLS(); refreshPark(); renderHome(); toast('已放入「暂不关注」，系统不再在首页提示其风险'); }
 function unparkJob(id){ const j=jobs.find(x=>x.id===id); if(!j) return; j.parked=false; saveJobsLS(); refreshPark(); renderHome(); toast('已移出「暂不关注」，恢复关注'); }
 function refreshPark(){ renderJobs(); updateParkFab(); }
@@ -3095,7 +3121,7 @@ function renderGreeting(){
 }
 function renderHome(){
   renderGreeting();
-  const today=new Date().toISOString().slice(0,10);
+  const today=todayStr();
 
   /* —— 今天最重要的三件事（真实，按优先级）—— */
   const tasks=[];
@@ -3123,13 +3149,13 @@ function renderHome(){
   // 全部「已投递」且尚未收到回复（回复即进入 笔试/测评/面试中/Offer）的数量（暂存「暂不关注」的职位不计入提醒）
   const awaiting=jobs.filter(j=>j.stage==='已投递' && !isParked(j)).length;
   // 其中投递已超过 3 天仍未回复的，单独提示；没有则不打扰（暂存职位不计入）
-  const awaitingOver3=jobs.filter(j=>j.stage==='已投递' && !isParked(j) && daysBetween(applyDateOf(j), today)>=3).length;
+  const awaitingOver3=jobs.filter(j=>isAwaitingOver3(j,today)).length;
   const allZero=(stale+interviewing+awaiting)===0;
   $('homeReminders').innerHTML =
     `• <span class="link-job stat-num" onclick="gotoAppsWithFilter('stale7','超过 7 天无更新', j=>daysBetween(lastUpdateOf(j),todayStr())>=7 && isActiveStage(j.stage) && !isParked(j))">${stale}</span> 个 Job 超过 7 天无更新<br>`+
     `• <span class="link-job stat-num" onclick="gotoAppsWithFilter('interviewing','正在进行面试', j=>j.stage==='面试中')">${interviewing}</span> 个岗位正在进行面试<br>`+
     `• <span class="link-job stat-num" onclick="gotoAppsWithFilter('awaiting','投递待回复', j=>j.stage==='已投递' && !isParked(j))">${awaiting}</span> 条投递待回复`+
-    (awaitingOver3>0? `<br>　⚠️ 其中 <span class="link-job stat-num" onclick="gotoAppsWithFilter('awaiting3','已超 3 天未回复', j=>j.stage==='已投递' && !isParked(j) && daysBetween(applyDateOf(j),todayStr())>=3)">${awaitingOver3}</span> 条已超 3 天未收到回复，建议主动跟进` : '')+
+    (awaitingOver3>0? `<br>　⚠️ 其中 <span class="link-job stat-num" onclick="gotoAppsWithFilter('awaiting3','已超 3 天未回复', j=>isAwaitingOver3(j,todayStr()))">${awaitingOver3}</span> 条已超 3 天未收到回复，建议主动跟进` : '')+
     (allZero? '<br><span style="color:var(--green)">暂无待处理提醒，节奏良好 👍</span>':'');
 
   /* —— 风险提示（真实，复用规则引擎）—— */
@@ -3655,7 +3681,11 @@ function renderBrainBank(){
   : '<div class="ph">题库为空，请在上方新增题目，或于 Interview Hub 训练中沉淀。</div>';
   renderRichToolbars($('brainBank'));
 }
-function expandBrain(id){ expandedBrainId=id; renderBrainBank(); pinStoryCard('brainBank', id); }
+function expandBrain(id){
+  if(expandedBrainId===id) return;
+  if(expandedBrainId!=null) saveBrain(expandedBrainId); // 保存当前题目及富文本，再切换到新题目
+  expandedBrainId=id; renderBrainBank(); pinStoryCard('brainBank', id);
+}
 function collapseBrain(){ const id=expandedBrainId; saveBrain(id); keepItemAnchor('brainBank', id, ()=>{ expandedBrainId=null; renderBrainBank(); }); }
 function saveBrain(qid){ const q=brainQ.find(x=>x.id==qid); if(!q) return; const t=$('qTitle'+qid); if(t) q.q=t.value.trim(); const rich=getRichEditor('ans'+qid); q.ansRich=rich; q.ans=richPlain(rich).trim(); saveBrainLS(); }
 function saveAns(qid){ saveBrain(qid); }
@@ -4557,7 +4587,11 @@ function renderStarList(){
   : '<div class="ph">暂无 STAR 故事，点击新增沉淀你的经历库。</div>';
   renderRichToolbars($('starList'));
 }
-function expandStar(id){ expandedStarId=id; renderStarList(); pinStoryCard('starList', id); }
+function expandStar(id){
+  if(expandedStarId===id) return;
+  if(expandedStarId!=null) saveStar(expandedStarId); // 保存当前经历及富文本，再切换到新经历
+  expandedStarId=id; renderStarList(); pinStoryCard('starList', id);
+}
 function collapseStar(){ const id=expandedStarId; saveStar(id); keepItemAnchor('starList', id, ()=>{ expandedStarId=null; renderStarList(); }); }
 function addStar(){ const v=$('starTitle').value.trim(); if(!v){ toast('请输入经历标题'); return; } const id=++starSeq; starStories.push({id, title:v, story:''}); $('starTitle').value=''; expandedStarId=id; renderStarList(); saveStarLS(); }
 function saveStar(id){ const s=starStories.find(x=>x.id==id); if(!s) return; const t=$('starTitle'+id); if(t) s.title=t.value.trim(); const rich=getRichEditor('star'+id); s.storyRich=rich; s.story=richPlain(rich); saveStarLS(); }
