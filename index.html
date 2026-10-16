@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- build: AJHC_PROD_Supabase_v13 (autosave and collapse active item when switching cards) -->
+<!-- build: AJHC_PROD_Supabase_v14 (review JSON mode, output limit, and finish diagnostics) -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -3382,6 +3382,7 @@ async function aiCall(messages, opts={}){
   const url=base.endsWith('/chat/completions')? base : base+'/chat/completions';
   const body={model:aiCfg.model, messages:msgs, temperature: opts.temperature ?? 0.7};
   if(opts.max_tokens) body.max_tokens=opts.max_tokens;
+  if(opts.response_format) body.response_format=opts.response_format;
   const ctrl=new AbortController(); currentAiAbort=ctrl;
   const timeoutMs=opts.timeout ?? 90000;
   const timer=setTimeout(()=>{ try{ ctrl.abort(); }catch(e){} }, timeoutMs);
@@ -3389,7 +3390,9 @@ async function aiCall(messages, opts={}){
     const res=await fetch(url, {method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+aiCfg.key}, body:JSON.stringify(body), signal:ctrl.signal});
     if(!res.ok){ let t=''; try{ t=(await res.text()).slice(0,200); }catch(e){} throw new Error('HTTP '+res.status+' '+t); }
     const j=await res.json();
-    const c=j&&j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content;
+    const choice=j&&j.choices&&j.choices[0];
+    window.__lastAiResponseMeta={finishReason:choice?.finish_reason||'',usage:j?.usage||null,model:j?.model||aiCfg.model};
+    const c=choice&&choice.message&&choice.message.content;
     if(!c) throw new Error('接口返回为空');
     return c;
   }catch(err){
@@ -6727,9 +6730,29 @@ ${historyContext||'没有可用的历史面试记录。请在 comparison 中说�
 【面试文字稿】
 ${raw}`;
   try{
-    const content=await aiCall([{role:'user', content:prompt}], {max_tokens:16000, temperature:0.3, timeout:1800000});
+    const reviewMessages=[{role:'user', content:prompt}];
+    const reviewOpts={max_tokens:24000, temperature:0.3, timeout:1800000, response_format:{type:'json_object'}};
+    let content;
+    try{
+      content=await aiCall(reviewMessages,reviewOpts);
+    }catch(e){
+      // 一些 OpenAI-compatible 服务尚不支持 JSON mode；仅在明确拒绝该参数时回退重试。
+      if(/HTTP 400/i.test(e.message||'') && /response.?format|json.?object|json mode|不支持|unsupported/i.test(e.message||'')){
+        const fallbackOpts={...reviewOpts};delete fallbackOpts.response_format;
+        content=await aiCall(reviewMessages,fallbackOpts);
+      }else throw e;
+    }
+    const finishReason=String(window.__lastAiResponseMeta?.finishReason||'').toLowerCase();
+    if(['length','max_tokens','max_output_tokens'].includes(finishReason)) throw new Error('AI 回复达到模型输出 token 上限，报告内容被截断。请缩短文字稿或更换支持更长输出的模型后重试。');
     let t=(content||'').trim(); const m=t.match(/```(?:json)?\s*([\s\S]*?)```/i); if(m) t=m[1];
-    const parsed=JSON.parse(t);
+    let parsed;
+    try{parsed=JSON.parse(t);}catch(parseError){
+      const pos=Number.isInteger(parseError.position)?parseError.position:null;
+      const detail=String(parseError.message||'').slice(0,180);
+      const loc=pos===null?'':`（错误位置约 ${pos}）`;
+      const reason=finishReason?`服务商结束原因：${finishReason}。`:'服务商未提供结束原因。';
+      throw new Error(`AI 已返回内容，但报告 JSON 格式无效${loc}：${detail}。${reason}请重试；若反复出现，缩短文字稿或更换模型。`);
+    }
     if(!parsed || typeof parsed!=='object') throw new Error('AI 返回格式不正确');
     // 字段标准化：新 prompt 用 answer，内部渲染用 a
     (parsed.questions||[]).forEach(q=>{ if(q.answer && !q.a) q.a=q.answer; });
