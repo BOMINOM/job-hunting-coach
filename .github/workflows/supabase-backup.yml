@@ -1,0 +1,63 @@
+
+name: Supabase Weekly Backup
+
+on:
+  schedule:
+    - cron: '0 2 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: supabase-weekly-backup
+  cancel-in-progress: false
+
+jobs:
+  backup:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    steps:
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+
+      - name: Backup and encrypt database
+        shell: bash
+        env:
+          DATABASE_URL: ${{ secrets.SUPABASE_DB_URL }}
+          BACKUP_PASSWORD: ${{ secrets.BACKUP_ENCRYPTION_PASSWORD }}
+        run: |
+          set -euo pipefail
+          umask 077
+
+          test -n "$DATABASE_URL"
+          test -n "$BACKUP_PASSWORD"
+
+          mkdir -p "$RUNNER_TEMP/db-backup"
+
+          pg_dump \
+            --dbname="$DATABASE_URL" \
+            --format=custom \
+            --no-owner \
+            --no-acl \
+            --file="$RUNNER_TEMP/db-backup/database.dump"
+
+          openssl enc -aes-256-cbc \
+            -pbkdf2 -iter 600000 -salt \
+            -in "$RUNNER_TEMP/db-backup/database.dump" \
+            -out "$RUNNER_TEMP/db-backup/database.dump.enc" \
+            -pass env:BACKUP_PASSWORD
+
+          rm -f "$RUNNER_TEMP/db-backup/database.dump"
+
+      - name: Upload encrypted backup
+        uses: actions/upload-artifact@v4
+        with:
+          name: supabase-backup-${{ github.run_number }}
+          path: ${{ runner.temp }}/db-backup/database.dump.enc
+          retention-days: 30
+          if-no-files-found: error
+          compression-level: 0
