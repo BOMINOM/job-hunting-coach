@@ -3,6 +3,7 @@ name: Supabase Weekly Backup
 
 on:
   schedule:
+    # Every Sunday 02:00 UTC = Sunday 10:00 Beijing
     - cron: '0 2 * * 0'
   workflow_dispatch:
 
@@ -15,15 +16,14 @@ concurrency:
 
 jobs:
   backup:
+    name: Backup Supabase Database
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 30
 
     steps:
-      - name: Install PostgreSQL 17 client
+      - name: Check PostgreSQL 17 client
         run: |
-          sudo apt-get update
-          sudo apt-get install -y postgresql-client-17
-          /usr/lib/postgresql/17/bin/pg_dump --version
+          docker run --rm postgres:17 pg_dump --version
 
       - name: Backup and encrypt database
         shell: bash
@@ -34,25 +34,48 @@ jobs:
           set -euo pipefail
           umask 077
 
+          # Check required secrets
           test -n "$DATABASE_URL"
           test -n "$BACKUP_PASSWORD"
 
-          mkdir -p "$RUNNER_TEMP/db-backup"
+          # Create temporary backup directory
+          BACKUP_DIR="$RUNNER_TEMP/db-backup"
+          mkdir -p "$BACKUP_DIR"
 
-          /usr/lib/postgresql/17/bin/pg_dump \
-            --dbname="$DATABASE_URL" \
-            --format=custom \
-            --no-owner \
-            --no-acl \
-            --file="$RUNNER_TEMP/db-backup/database.dump"
+          # Remove temporary files when the step exits
+          trap 'rm -f "$BACKUP_DIR/database.dump"' EXIT
 
+          # Export database using PostgreSQL 17
+          docker run --rm \
+            --env DATABASE_URL \
+            --volume "$BACKUP_DIR:/backup" \
+            postgres:17 \
+            pg_dump \
+              --dbname="$DATABASE_URL" \
+              --format=custom \
+              --no-owner \
+              --no-acl \
+              --file=/backup/database.dump
+
+          # Check that the backup exists
+          test -s "$BACKUP_DIR/database.dump"
+
+          # Encrypt backup before uploading
           openssl enc -aes-256-cbc \
-            -pbkdf2 -iter 600000 -salt \
-            -in "$RUNNER_TEMP/db-backup/database.dump" \
-            -out "$RUNNER_TEMP/db-backup/database.dump.enc" \
+            -pbkdf2 \
+            -iter 600000 \
+            -salt \
+            -in "$BACKUP_DIR/database.dump" \
+            -out "$BACKUP_DIR/database.dump.enc" \
             -pass env:BACKUP_PASSWORD
 
-          rm -f "$RUNNER_TEMP/db-backup/database.dump"
+          # Delete unencrypted backup
+          rm -f "$BACKUP_DIR/database.dump"
+
+          # Verify encrypted file exists
+          test -s "$BACKUP_DIR/database.dump.enc"
+
+          echo "Encrypted database backup created."
 
       - name: Upload encrypted backup
         uses: actions/upload-artifact@v4
