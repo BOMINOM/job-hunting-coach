@@ -19,10 +19,11 @@ jobs:
     timeout-minutes: 20
 
     steps:
-      - name: Install PostgreSQL client
+      - name: Install PostgreSQL 17 client
         run: |
           sudo apt-get update
-          sudo apt-get install -y postgresql-client
+          sudo apt-get install -y postgresql-client-17
+          /usr/lib/postgresql/17/bin/pg_dump --version
 
       - name: Backup and encrypt database
         shell: bash
@@ -38,7 +39,7 @@ jobs:
 
           mkdir -p "$RUNNER_TEMP/db-backup"
 
-          pg_dump \
+          /usr/lib/postgresql/17/bin/pg_dump \
             --dbname="$DATABASE_URL" \
             --format=custom \
             --no-owner \
