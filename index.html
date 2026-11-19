@@ -3393,7 +3393,10 @@ async function aiCall(messages, opts={}){
     const choice=j&&j.choices&&j.choices[0];
     window.__lastAiResponseMeta={finishReason:choice?.finish_reason||'',usage:j?.usage||null,model:j?.model||aiCfg.model};
     const c=choice&&choice.message&&choice.message.content;
-    if(!c) throw new Error('接口返回为空');
+    if(!c){
+      if(choice?.finish_reason==='length') throw new Error('AI 已达到本次请求的 token 上限，但未返回正文（finish_reason=length）。请提高输出 token 上限，或缩短输入、切换模型后重试。');
+      throw new Error('接口返回为空');
+    }
     return c;
   }catch(err){
     if(err && err.name==='AbortError'){ const e2=new Error('AI 请求已取消或超时（'+(timeoutMs/1000)+' 秒）。请检查网络 / 模型配置，或稍后重试。'); e2.name='AbortError'; throw e2; }
@@ -6128,7 +6131,7 @@ ${jd}
 
 【候选人简历】
 ${resume}`;
-    const content=await aiCall([{role:'user', content:prompt}], {max_tokens:2048, temperature:0.4, timeout:300000});
+    const content=await aiCall([{role:'user', content:prompt}], {max_tokens:8192, temperature:0.4, timeout:300000});
     let s=(content||'').trim();
     const m=s.match(/```(?:json)?\s*([\s\S]*?)```/i); if(m) s=m[1];
     const parsed=JSON.parse(s);
