@@ -146,6 +146,7 @@
   .mockjob-row .fill { height:100%; border-radius:11px; background:linear-gradient(90deg,#f59e0b,#fbbf24); min-width:6px; position:relative; }
   .mockjob-row .bar-count { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); font-size:11px; font-weight:700; color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.25); white-space:nowrap; }
   .mockjob-row .num { font-size:11px; font-weight:600; color:#6b7280; white-space:nowrap; min-width:54px; text-align:left; }
+  @media(max-width:700px){.kpi-row.full{grid-template-columns:repeat(2,minmax(0,1fr))!important;}}
   .kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:16px; }
   .kpi { background:#fff; border:1px solid #f0f1f6; border-radius:16px; padding:20px; box-shadow:0 2px 10px rgba(0,0,0,.04); }
   .kpi .v { font-size:32px; font-weight:800; color:#4f46e5; line-height:1.1; }
@@ -929,7 +930,7 @@
 #sbChangePasswordForm{max-width:420px;margin-top:12px}#sbChangePasswordForm label{display:block;margin:10px 0 5px}#sbChangePasswordForm input{display:block;width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px}#sbChangePasswordButton{margin-top:14px}#sbPasswordStatus{margin-top:10px;overflow-wrap:anywhere;color:#b45309}
 </style><style>
 /* v6: scoped knowledge library, no changes to other modules */
-.kl-library{--kl-purple:#7156e8;min-width:0;color:#23233b;scroll-margin-top:84px}.kl-library [hidden]{display:none!important}.kl-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:12px 0 18px}.kl-head h3{font-size:23px;margin:0}.kl-head p{color:#7c8195;margin:7px 0 0;font-size:13px}.kl-tabs{display:flex;gap:6px;position:sticky;top:0;z-index:25;padding:8px 14px 0;background:#fff;border:1px solid #e9e6f6;border-radius:16px 16px 0 0;box-shadow:0 3px 12px #35245c05}.kl-tabs button{background:none;border:0;border-bottom:3px solid transparent;font:inherit;font-weight:650;color:#72778c;padding:16px 20px;cursor:pointer}.kl-tabs button[aria-selected=true]{color:var(--kl-purple);border-bottom-color:var(--kl-purple)}.kl-workspace{display:grid;grid-template-columns:230px minmax(0,1fr);gap:20px;margin-top:18px;align-items:start}.kl-sidebar{background:#fff;border:1px solid #e9e6f6;border-radius:16px;padding:16px 12px;position:sticky;top:76px;max-height:calc(100vh - 100px);overflow:auto}.kl-side-title{display:flex;justify-content:space-between;align-items:center;padding:0 8px 12px}.kl-side-foot{border-top:1px solid #f0edf8;padding:12px 8px 0;margin-top:20px}.kl-side-foot button{width:100%}.kl-node{display:flex;align-items:center;border-radius:9px;margin:3px 0;min-width:0}.kl-node.active{background:#ede8ff;color:#6245dc}.kl-node button{border:0;background:transparent;color:inherit;cursor:pointer;font:inherit;font-size:13px;text-align:left}.kl-node .kl-node-label{flex:1;padding:11px 8px;overflow-wrap:anywhere}.kl-node small{font-size:11px;color:#8a8ca0;margin-left:4px}.kl-node .kl-twisty{padding:10px;width:30px;flex-shrink:0}.kl-child{margin-left:20px;border-left:1px solid #e6e1f3;padding-left:8px}.kl-child .kl-node-label{font-size:12px}.kl-main{min-width:0}.kl-toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:4px 0 16px}.kl-heading{flex:1;min-width:160px}.kl-heading h3{font-size:21px;margin:0 0 5px;overflow-wrap:anywhere}.kl-heading span{font-size:12px;color:#7d8298}.kl-toolbar input{flex:1;min-width:180px;max-width:330px;height:39px}.kl-toolbar select{max-width:135px;height:39px}.kl-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:0 0 14px;font-size:12px;color:#74798c}.kl-actions #klAddQuestion{margin-left:auto}.kl-report-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.kl-job-card{background:#fff;border:1px solid #e5e0f1;border-radius:14px;padding:18px;min-width:0;align-self:start}.kl-job-head{border-bottom:1px solid #eeeaf7;padding-bottom:14px;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start;justify-content:space-between}.kl-job-head h4{font-size:16px;margin:0 0 6px;overflow-wrap:anywhere}.kl-job-head p{font-size:11px;color:#808399;margin:0}.kl-job-head .btn{flex-shrink:0}.kl-round{border-bottom:1px solid #f0edf7;padding:14px 0 14px 12px;border-left:2px solid #e2daf9;position:relative;min-width:0}.kl-round:before{content:'';position:absolute;width:8px;height:8px;border-radius:50%;left:-5px;top:20px;background:#a090db}.kl-round-top{display:flex;gap:7px;align-items:flex-start;font-size:13px}.kl-round-top strong{flex:1;overflow-wrap:anywhere}.kl-score{color:#297b53;background:#e9f8ed;padding:2px 7px;border-radius:15px;white-space:nowrap;font-weight:700}.kl-report-name{font-size:12px;color:#777f92;margin:7px 0;overflow-wrap:anywhere}.kl-round-foot{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:11px;color:#888da0}.kl-round-foot .kl-view{margin-left:auto}.kl-library .btn.sm{font-size:12px;padding:7px 10px}.kl-badge{font-size:10px;padding:3px 6px;color:#438269;background:#edf7f1;border-radius:5px;white-space:nowrap}.kl-badge.manual{color:#5165ad;background:#eef2fd}.kl-card-foot{margin-top:10px}.kl-empty{padding:45px 20px;text-align:center;border:1px dashed #d9d1ed;border-radius:14px;background:#fff;color:#85849a;line-height:1.8}.kl-question{background:#fff;border:1px solid #e5e0f1;border-radius:12px;margin-bottom:12px;padding:16px;scroll-margin-top:90px}.kl-question-head{display:flex;align-items:flex-start;gap:10px}.kl-question-toggle{font:inherit;font-size:14px;font-weight:650;text-align:left;flex:1;border:0;background:none;cursor:pointer;line-height:1.65;color:#28253f;overflow-wrap:anywhere}.kl-question-meta{color:#81849a;font-size:11px;line-height:1.8;margin:8px 0 0 27px;display:flex;flex-wrap:wrap;gap:8px}.kl-answer{border-top:1px solid #eeeaf6;margin-top:14px;padding-top:6px;overflow-wrap:anywhere}.kl-question-foot{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}.kl-pagination{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;margin:24px 0;color:#7b8095;font-size:12px}.kl-pagination button:disabled{opacity:.4;cursor:default}.kl-mobile-filter{display:none}.kl-dialog{border:1px solid #e6e0f2;border-radius:18px;padding:24px;width:min(590px,calc(100vw - 28px));max-height:85vh;color:#2b2840;box-sizing:border-box;box-shadow:0 18px 65px #21143530}.kl-dialog::backdrop{background:#21143555}.kl-dialog-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.kl-dialog-head h3{margin:0;font-size:19px}.kl-form label{display:block;font-size:13px;font-weight:600;margin:15px 0 7px}.kl-form input,.kl-form select{width:100%;box-sizing:border-box;min-height:40px}.kl-form p,.kl-manager-note{font-size:12px;color:#7e8297;line-height:1.7}.kl-dialog-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}.kl-manager-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid #eeeaf6}.kl-manager-row b{flex:1;font-size:13px;overflow-wrap:anywhere;min-width:100px}.kl-manager-row small{font-size:11px;color:#8b8e9e}.kl-manager-row .btn{font-size:11px;padding:6px 8px}.kl-manager-row.child{margin-left:18px}.kl-return{position:sticky;top:0;z-index:24;background:#fff;padding:10px;border:1px solid #e5dff4;border-radius:10px;margin-bottom:10px}.kl-library button:focus-visible,.kl-dialog button:focus-visible{outline:2px solid #7156e8;outline-offset:3px}.kl-library input[type=checkbox]{width:16px;height:16px;margin:5px 0 0;accent-color:#7156e8;flex-shrink:0}
+.kl-library{--kl-purple:#7156e8;min-width:0;color:#23233b;scroll-margin-top:84px}.kl-library [hidden]{display:none!important}.kl-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:12px 0 18px}.kl-head h3{font-size:23px;margin:0}.kl-head p{color:#7c8195;margin:7px 0 0;font-size:13px}.kl-tabs{display:flex;gap:6px;position:sticky;top:0;z-index:25;padding:8px 14px 0;background:#fff;border:1px solid #e9e6f6;border-radius:16px 16px 0 0;box-shadow:0 3px 12px #35245c05}.kl-tabs button{background:none;border:0;border-bottom:3px solid transparent;font:inherit;font-weight:650;color:#72778c;padding:16px 20px;cursor:pointer}.kl-tabs button[aria-selected=true]{color:var(--kl-purple);border-bottom-color:var(--kl-purple)}.kl-workspace{display:grid;grid-template-columns:230px minmax(0,1fr);gap:20px;margin-top:18px;align-items:start}.kl-sidebar{background:#fff;border:1px solid #e9e6f6;border-radius:16px;padding:16px 12px;position:sticky;top:76px;max-height:calc(100vh - 100px);overflow:auto}.kl-side-title{display:flex;justify-content:space-between;align-items:center;padding:0 8px 12px}.kl-side-foot{border-top:1px solid #f0edf8;padding:12px 8px 0;margin-top:20px}.kl-side-foot button{width:100%}.kl-node{display:flex;align-items:center;border-radius:9px;margin:3px 0;min-width:0}.kl-node.active{background:#ede8ff;color:#6245dc}.kl-node button{border:0;background:transparent;color:inherit;cursor:pointer;font:inherit;font-size:13px;text-align:left}.kl-node .kl-node-label{flex:1;padding:11px 8px;overflow-wrap:anywhere}.kl-node small{font-size:11px;color:#8a8ca0;margin-left:4px}.kl-node .kl-twisty{padding:10px;width:30px;flex-shrink:0}.kl-child{margin-left:20px;border-left:1px solid #e6e1f3;padding-left:8px}.kl-child .kl-node-label{font-size:12px}.kl-main{min-width:0}.kl-toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:4px 0 16px}.kl-heading{flex:1;min-width:160px}.kl-heading h3{font-size:21px;margin:0 0 5px;overflow-wrap:anywhere}.kl-heading span{font-size:12px;color:#7d8298}.kl-toolbar input{flex:1;min-width:180px;max-width:330px;height:39px}.kl-toolbar select{max-width:135px;height:39px}.kl-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:0 0 14px;font-size:12px;color:#74798c}.kl-actions #klAddQuestion{margin-left:auto}.kl-report-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.kl-job-card{background:#fff;border:1px solid #e5e0f1;border-radius:14px;padding:18px;min-width:0;align-self:start}.kl-job-head{border-bottom:1px solid #eeeaf7;padding-bottom:14px;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start;justify-content:space-between}.kl-job-head h4{font-size:16px;margin:0 0 6px;overflow-wrap:anywhere}.kl-job-head p{font-size:11px;color:#808399;margin:0}.kl-job-head .btn{flex-shrink:0}.kl-round{border-bottom:1px solid #f0edf7;padding:14px 0 14px 12px;border-left:2px solid #e2daf9;position:relative;min-width:0}.kl-round:before{content:'';position:absolute;width:8px;height:8px;border-radius:50%;left:-5px;top:20px;background:#a090db}.kl-round-top{display:flex;gap:7px;align-items:flex-start;font-size:13px}.kl-round-top strong{flex:1;overflow-wrap:anywhere}.kl-score{color:#297b53;background:#e9f8ed;padding:2px 7px;border-radius:15px;white-space:nowrap;font-weight:700}.kl-report-name{font-size:12px;color:#777f92;margin:7px 0;overflow-wrap:anywhere}.kl-round-foot{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:11px;color:#888da0}.kl-round-foot .kl-view{margin-left:auto}.kl-library .btn.sm{font-size:12px;padding:7px 10px}.kl-badge{font-size:10px;padding:3px 6px;color:#438269;background:#edf7f1;border-radius:5px;white-space:nowrap}.kl-badge.manual{color:#5165ad;background:#eef2fd}.kl-card-foot{margin-top:10px}.kl-empty{padding:45px 20px;text-align:center;border:1px dashed #d9d1ed;border-radius:14px;background:#fff;color:#85849a;line-height:1.8}.kl-question{background:#fff;border:1px solid #e5e0f1;border-radius:12px;margin-bottom:12px;padding:16px;scroll-margin-top:90px}.kl-question-head{display:flex;align-items:flex-start;gap:10px}.kl-question-toggle{font:inherit;font-size:14px;font-weight:650;text-align:left;flex:1;border:0;background:none;cursor:pointer;line-height:1.65;color:#28253f;overflow-wrap:anywhere}.kl-question-meta{color:#81849a;font-size:11px;line-height:1.8;margin:8px 0 0 27px;display:flex;flex-wrap:wrap;gap:8px}.kl-answer{border-top:1px solid #eeeaf6;margin-top:14px;padding-top:6px;overflow-wrap:anywhere}.kl-question-foot{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}.kl-pagination{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;margin:24px 0;color:#7b8095;font-size:12px}.kl-pagination button:disabled{opacity:.4;cursor:default}.kl-mobile-filter{display:none}.kl-dialog{position:fixed;inset:0;margin:auto;overflow:auto;border:1px solid #e6e0f2;border-radius:18px;padding:24px;width:min(590px,calc(100vw - 28px));max-height:85vh;color:#2b2840;box-sizing:border-box;box-shadow:0 18px 65px #21143530}.kl-dialog::backdrop{background:#21143555}.kl-dialog-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.kl-dialog-head h3{margin:0;font-size:19px}.kl-form label{display:block;font-size:13px;font-weight:600;margin:15px 0 7px}.kl-form input,.kl-form select{width:100%;box-sizing:border-box;min-height:40px}.kl-form p,.kl-manager-note{font-size:12px;color:#7e8297;line-height:1.7}.kl-dialog-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}.kl-manager-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid #eeeaf6}.kl-manager-row b{flex:1;font-size:13px;overflow-wrap:anywhere;min-width:100px}.kl-manager-row small{font-size:11px;color:#8b8e9e}.kl-manager-row .btn{font-size:11px;padding:6px 8px}.kl-manager-row.child{margin-left:18px}.kl-return{position:sticky;top:0;z-index:24;background:#fff;padding:10px;border:1px solid #e5dff4;border-radius:10px;margin-bottom:10px}.kl-library button:focus-visible,.kl-dialog button:focus-visible{outline:2px solid #7156e8;outline-offset:3px}.kl-library input[type=checkbox]{width:16px;height:16px;margin:5px 0 0;accent-color:#7156e8;flex-shrink:0}
 @media(min-width:769px){.kl-tabs{top:68px}.kl-sidebar{top:146px;max-height:calc(100vh - 170px)}.kl-return{top:68px}}
 @media(max-width:1150px){.kl-report-grid{grid-template-columns:1fr}.kl-workspace{grid-template-columns:205px minmax(0,1fr)}}
 @media(max-width:768px){.kl-workspace{grid-template-columns:1fr;gap:12px}.kl-sidebar{display:none;position:static;max-height:55vh}.kl-workspace.kl-tree-open .kl-sidebar{display:block}.kl-mobile-filter{display:inline-flex}.kl-tabs{top:0;padding:4px 5px 0}.kl-tabs button{flex:1;font-size:12px;padding:15px 5px}.kl-head h3{font-size:20px}.kl-head p{font-size:11px}.kl-toolbar{gap:8px}.kl-heading{min-width:140px}.kl-toolbar input{max-width:none;flex-basis:65%;min-width:130px}.kl-toolbar select{flex:1;max-width:none;min-width:100px}.kl-job-card{padding:14px}.kl-actions #klAddQuestion{margin-left:0}.kl-dialog{padding:18px}.kl-question{padding:12px}.kl-question-meta{margin-left:24px}.kl-actions{gap:6px}.kl-return{font-size:12px}.kl-head{align-items:flex-start}}
@@ -4227,7 +4228,7 @@ function renderCheatSheet(){
   else{
     const legacy=cheatList(job.id,'legacy'),notice=cheatNotices[job.id]||'';
     $('cheatSheet').innerHTML=(notice?`<div class="cf-notice" role="status">${esc(notice)}</div>`:'')+
-      `<div class="cf-board" data-job="${esc(job.id)}">${CHEAT_MODULES.map(m=>`<section class="cf-panel" data-module="${m.id}"><div class="cf-panel-head"><h4>${m.name}<span class="cf-count">${cheatList(job.id,m.id).length}</span></h4><button type="button" class="btn xs ghost" data-cheat-action="add" data-module="${m.id}">＋ 新增</button></div><div class="cf-list" data-module="${m.id}" data-job="${esc(job.id)}">${cheatList(job.id,m.id).map(it=>renderCheatChip(it,job.id)).join('')||'<div class="cf-empty">新增关键词，或把气泡拖到这里</div>'}</div></section>`).join('')}</div>`+
+      `<div class="cf-board" data-job="${esc(job.id)}">${CHEAT_MODULES.map(m=>`<section class="cf-panel" data-module="${m.id}"><div class="cf-panel-head"><h4>${m.name}<span class="cf-count">${cheatList(job.id,m.id).length}</span></h4><button type="button" class="btn xs ghost" data-cheat-action="add" data-module="${m.id}">＋ 新增</button></div>${m.id==='core'?coreDataControls(job.id):''}<div class="cf-list" data-module="${m.id}" data-job="${esc(job.id)}">${cheatList(job.id,m.id).map(it=>renderCheatChip(it,job.id)).join('')||'<div class="cf-empty">新增关键词，或把气泡拖到这里</div>'}</div></section>`).join('')}</div>`+
       (legacy.length?`<section class="cf-legacy"><div class="cf-panel-head"><h4>旧锦囊待归类 · ${legacy.length} 条</h4><button type="button" class="btn sm ghost" data-cheat-action="organize">整理到五个模块</button></div><div class="cf-empty" style="padding:0 0 10px;text-align:left;">原文和大小已保留。可逐条拖入模块，也可先预览分类后统一应用。</div><div class="cf-list" data-job="${esc(job.id)}" data-module="legacy">${legacy.map(it=>renderCheatChip(it,job.id)).join('')}</div></section>`:'');
   }
   bindCheatEvents();restoreCheatSelection();
@@ -6180,6 +6181,64 @@ function wireInsightsLegends(grid){
   if(grid.dataset.legendWired)return;grid.dataset.legendWired='1';
   grid.addEventListener('click',e=>{const b=e.target.closest('[data-ins-legend]');if(!b)return;const card=b.closest('.ins-card');if(!card)return;const key=b.dataset.insLegend,show=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(show));card.querySelectorAll('[data-series="'+CSS.escape(key)+'"]').forEach(el=>el.classList.toggle('ins-series-hidden',!show));});
 }
+function reachedRepeatInterview(job){
+  return (job.timeline||[]).filter(e=>e.type==='interview'&&(e.anchor||'面试中')==='面试中').length>=2;
+}
+function coreDataControls(jobId){
+  return `<div class="cf-core-tools" onclick="event.stopPropagation()" style="display:flex;gap:8px;flex-wrap:wrap;padding:10px 0"><button class="btn sm ghost" onclick="openCoreDataPicker('export')">选择核心数据存入资料库</button> <button class="btn sm ghost" onclick="openCoreDataPicker('import')">从资料库筛选添加</button></div>`;
+}
+let corePickerState=null;
+function openCoreDataPicker(mode){
+  const job=jobs.find(j=>cheatSame(j.id,cheatJobCtx));if(!job)return;
+  corePickerState={mode,jobId:job.id,selected:new Set()};
+  klOpenDialog(mode==='export'?'核心数据 → 关键数据资料库':'关键数据资料库 → 核心数据',`<div class="kl-form"><label for="corePickerSearch">筛选词条</label><input id="corePickerSearch" type="search" placeholder="输入关键词" oninput="renderCorePicker()"><label><input type="checkbox" id="corePickerAll" style="width:auto;min-height:0" onchange="selectCorePickerAll(this.checked)"> 全选筛选结果</label><div id="corePickerRows" style="max-height:40vh;overflow:auto"></div><p id="corePickerCount"></p><div class="kl-dialog-actions"><button class="btn ghost" onclick="klCloseDialog()">取消</button><button class="btn" onclick="saveCorePicker()">添加所选</button></div></div>`);
+  renderCorePicker();
+}
+function corePickerItems(){return corePickerState.mode==='export'?cheatList(corePickerState.jobId,'core'):(cheatPresets['关键数据']||[]);}
+function corePickerVisible(){const query=($('corePickerSearch').value||'').trim().toLowerCase();return corePickerItems().filter(it=>String(it.text).toLowerCase().includes(query));}
+function renderCorePicker(){
+  const items=corePickerVisible(),root=$('corePickerRows');root.replaceChildren();
+  items.forEach(it=>{const label=document.createElement('label'),cb=document.createElement('input'),span=document.createElement('span');cb.type='checkbox';cb.style.cssText='width:auto;min-height:0;margin-right:8px';cb.checked=corePickerState.selected.has(String(it.id));cb.onchange=()=>{cb.checked?corePickerState.selected.add(String(it.id)):corePickerState.selected.delete(String(it.id));renderCorePicker();};span.textContent=it.text;label.append(cb,span);root.append(label);});
+  if(!items.length)root.textContent='暂无匹配词条';
+  const n=items.filter(it=>corePickerState.selected.has(String(it.id))).length;$('corePickerAll').checked=items.length>0&&n===items.length;$('corePickerAll').indeterminate=n>0&&n<items.length;$('corePickerCount').textContent=`已选 ${corePickerState.selected.size} 条；重复文本将自动跳过。`;
+}
+function selectCorePickerAll(checked){corePickerVisible().forEach(it=>checked?corePickerState.selected.add(String(it.id)):corePickerState.selected.delete(String(it.id)));renderCorePicker();}
+function saveCorePicker(){
+  if(!corePickerState)return;const {mode,jobId,selected}=corePickerState;
+  const items=corePickerItems().filter(it=>selected.has(String(it.id)));if(!items.length)return toast('请先选择词条');
+  if(!jobs.some(j=>cheatSame(j.id,jobId)))return toast('目标岗位不存在');
+  const dest=mode==='export'?(cheatPresets['关键数据']||(cheatPresets['关键数据']=[])):cheatArr(jobId);let added=0,order=mode==='import'?cheatNextOrder(jobId,'core'):0;
+  items.forEach(it=>{if(dest.some(x=>(mode==='export'||guessCheatModule(x)==='core')&&cheatTextKey(x.text)===cheatTextKey(it.text)))return;dest.push(mode==='export'?{id:++cheatSeq,text:it.text,scale:1}:newCheatItem('core',it.text,{order:order++,sourcePresetId:it.id}));added++;});
+  if(added){if(mode==='export')saveCheatPresets();else{cheatTouch(jobId);saveCheatLS();}}
+  klCloseDialog();renderCheatSheet();toast(`已添加 ${added} 条，跳过 ${items.length-added} 条重复词条`);
+}
+let reviewCorrectionContext=null;
+function editReviewJob(reportId=null){
+  const saved=reportId!=null?savedReviewReports.find(r=>String(r.id)===String(reportId)):null;
+  if(reportId!=null&&!saved)return toast('报告不存在');
+  reviewCorrectionContext={card:reportId!=null,reportId:saved?saved.id:window.__klLoadedReportId,recordId:saved?saved.recordId:window.__currentReviewRecordId,result:saved?saved.report:reviewResult};
+  const reviewResult=reviewCorrectionContext.result;
+  if(!reviewResult)return;if(!jobs.length)return toast('请先添加岗位');
+  klOpenDialog('修改复盘关联岗位',`<div class="kl-form"><label for="reviewCorrectJob">从已有岗位选择</label><select id="reviewCorrectJob" onchange="updateReviewCorrectionName()">${jobs.map(j=>`<option value="${esc(j.id)}" ${String(j.id)===String(reviewResult.jobId)?'selected':''}>${esc(j.role)} @ ${esc(j.company)}</option>`).join('')}</select><label for="reviewCorrectName">报告名称</label><input id="reviewCorrectName" maxlength="160" value="${esc(savedReviewReports.find(r=>String(r.id)===String(reviewCorrectionContext.reportId))?.name||((reviewResult.role||'')+' @ '+(reviewResult.company||'')+' 复盘报告'))}"><p>选择岗位后自动填入名称，也可手动修改。同步更新岗位分组；正文、评分、日期和轮次保持不变。</p><div class="kl-dialog-actions"><button class="btn ghost" onclick="klCloseDialog()">取消</button><button class="btn" onclick="saveReviewJobCorrection()">保存岗位与标题</button></div></div>`);
+}
+function updateReviewCorrectionName(){const job=jobs.find(j=>String(j.id)===$('reviewCorrectJob').value);if(job)$('reviewCorrectName').value=`${job.role} @ ${job.company} 复盘报告`;}
+function saveReviewJobCorrection(){
+  if(!reviewCorrectionContext)return;
+  const reviewResult=reviewCorrectionContext.result;
+  const job=jobs.find(j=>String(j.id)===$('reviewCorrectJob').value);if(!job||!reviewResult)return;
+  const meta={jobId:job.id,role:job.role||'',company:job.company||''};
+  const name=($('reviewCorrectName').value||'').trim();if(!name)return toast('请输入报告名称');
+  klPinSources();
+  const assignment={...klAutoAssignment(meta.role,meta.company),round:reviewResult.knowledgeClass?.round||''};
+  Object.assign(reviewResult,meta,{knowledgeClass:assignment});
+  const saved=savedReviewReports.find(r=>String(r.id)===String(reviewCorrectionContext.reportId));
+  if(saved){Object.assign(saved,meta);Object.assign(saved.report,meta);saved.name=name;saved.knowledgeClass={...assignment,round:saved.knowledgeClass?.round||assignment.round};saved.report.knowledgeClass={...saved.knowledgeClass};saved.updatedAt=Date.now();saveSavedReviewReportsLS();}
+  const record=reviewHistory.find(r=>String(r.id)===String(reviewCorrectionContext.recordId));
+  if(record){Object.assign(record,meta);record.updatedAt=Date.now();saveReviewHistoryLS();}
+  if(saved){const info=klBaseInfo(saved),v=klState.views.reports;v.category=info.categoryId;v.group=info.groupId;v.page=1;v.search='';klState.expanded.add(info.categoryId);}
+  klCloseDialog();if(!reviewCorrectionContext.card)renderReviewOut(reviewResult,job);renderSavedReviewReports();renderInsights();toast('已更新报告名称、关联岗位与分组');
+}
+
 function renderInsights(){
   const grid=$('insightsGrid'); if(!grid) return;
   wireInsightsLegends(grid);
@@ -6191,6 +6250,8 @@ function renderInsights(){
   const jobReachedReply=j=> REPLY_STAGES.includes(j.stage) || (j.timeline||[]).some(e=> REPLY_STAGES.includes(e.stage));
   const reached=jobs.filter(jobReachedReply).length;
   const reachedInterview=jobs.filter(j=>jobReachedStage(j,'面试中')).length;
+  const reachedRepeat=jobs.filter(reachedRepeatInterview).length;
+  const repeatRate=reachedInterview?Math.round(reachedRepeat/reachedInterview*100):0;
   const reachedOffer=jobs.filter(j=>jobReachedStage(j,'Offer')).length;
   const sc=insStageCounts();
   const applied=sc['已投递']||0, interviewing=sc['面试中']||0, offers=sc['Offer']||0, test=sc['笔试/测评']||0, rej=sc['拒信/放弃']||0;
@@ -6206,10 +6267,11 @@ function renderInsights(){
   const indSet=new Set(jobs.map(j=>j.industry).filter(Boolean));
 
   // KPI
-  const kpi=`<div class="kpi-row full">
+  const kpi=`<div class="kpi-row full" style="grid-template-columns:repeat(5,minmax(0,1fr))">
     <div class="kpi"><div class="v">${total}</div><div class="l">总投递数</div><div class="sub">覆盖 ${srcSet.size} 平台 · ${indSet.size} 行业</div></div>
     <div class="kpi"><div class="v">${replyRate}<small>%</small></div><div class="l">整体回复率</div><div class="sub">已获回复 ${reached} 个</div></div>
     <div class="kpi"><div class="v">${reachedInterview}</div><div class="l">进入面试</div><div class="sub">面试率 ${interviewRate}%</div></div>
+    <div class="kpi"><div class="v">${reachedRepeat}</div><div class="l">进入复试</div><div class="sub">复试转化率 ${repeatRate}%</div></div>
     <div class="kpi"><div class="v">${reachedOffer}</div><div class="l">获得 Offer</div><div class="sub">转化率 ${offerConv}%</div></div>
   </div>`;
 
@@ -6217,6 +6279,7 @@ function renderInsights(){
   const funnelStages=[
     {label:'总投递', count:total, c:'#6366f1'},
     {label:'面试', count:reachedInterview, c:'#8b5cf6'},
+    {label:'进入复试', count:reachedRepeat, c:'#a855f7'},
     {label:'Offer', count:reachedOffer, c:'#ec4899'}
   ];
   const maxC=Math.max(1, total);
@@ -6224,12 +6287,12 @@ function renderInsights(){
   const funnel=funnelStages.map((x,i)=>{
     const top=widths[i], bottom=(i<widths.length-1?widths[i+1]:Math.max(22, Math.round(top*0.65)));
     const tx=50-top/2, tx2=50+top/2, bx=50+bottom/2, bx2=50-bottom/2;
-    return `<div class="funnel-stage" data-series="${i===0?'funnel-total':i===1?'funnel-interview':'funnel-offer'}">
+    return `<div class="funnel-stage" data-series="${i===0?'funnel-total':i===1?'funnel-interview':i===2?'funnel-repeat':'funnel-offer'}">
       <div class="layer" title="${x.label}：${x.count} 个">
         <svg viewBox="0 0 100 40" preserveAspectRatio="none"><polygon points="${tx},0 ${tx2},0 ${bx},40 ${bx2},40" fill="${x.c}"/></svg>
         <div class="ly-label">${x.count}</div>
       </div>
-      <div class="ly-meta">${i===0?x.label:`${i===1?'面试转化率':'Offer 转化率'} ${i===1?(total?Math.round(reachedInterview/total*100):0):(reachedInterview?Math.round(reachedOffer/reachedInterview*100):0)}%`}</div>
+      <div class="ly-meta">${i===0?x.label:`${i===1?'面试转化率':i===2?'复试转化率':'Offer 转化率'} ${i===1?(total?Math.round(reachedInterview/total*100):0):i===2?repeatRate:(reachedInterview?Math.round(reachedOffer/reachedInterview*100):0)}%`}</div>
     </div>`;
   }).join('');
 
@@ -6442,7 +6505,7 @@ function renderInsights(){
   const priorityHtml=buildInsightsPriorityHtml();
   grid.innerHTML = kpi
     + `<div class="ins-grid">
-        <div class="ins-card"><h3>📊 招聘漏斗（投递 → Offer） <span class="sub">面试转化率 ${total?Math.round(reachedInterview/total*100):0}% · Offer 转化率 ${reachedInterview?Math.round(reachedOffer/reachedInterview*100):0}%</span></h3><div class="funnel-wrap">${funnel}</div></div>
+        <div class="ins-card"><h3>📊 招聘漏斗（投递 → Offer） <span class="sub">面试转化率 ${total?Math.round(reachedInterview/total*100):0}% · 复试转化率 ${repeatRate}% · Offer 转化率 ${reachedInterview?Math.round(reachedOffer/reachedInterview*100):0}%</span></h3><div class="funnel-wrap">${funnel}</div></div>
         <div class="ins-card prio-card"><h3>🎯 重点跟进岗位（按匹配度）</h3><div class="prio-wrap">${priorityHtml}</div></div>
       </div>
       <div class="ins-grid">
@@ -6873,7 +6936,7 @@ function renderReviewOut(d, job){
   const weakCardHtml = (curRec && weakTotal>0) ? renderInlineWeakCard(curRec) : '';
   $('reviewOut').innerHTML=`
     <div class="card" style="grid-column:1/-1;">
-      <h3>📋 复盘报告 ${job?`· ${esc(job.role)} @ ${esc(job.company)}`:''}</h3>
+      <h3>📋 复盘报告 ${job?`· ${esc(job.role)} @ ${esc(job.company)}`:''} <button class="btn sm ghost" onclick="editReviewJob()">修改关联岗位</button></h3>
       <div class="overall">${esc(d.overall||'')}</div>
       ${d.transcriptionNote?`<div class="card" style="margin-top:10px;background:#eff6ff;border:1px solid #bfdbfe;"><h3>📝 转写说明</h3><div class="ans-body">${esc(d.transcriptionNote)}</div></div>`:''}
 
@@ -7558,7 +7621,7 @@ function klQuestionHTML({item:q,info}){
 function klReportCardHTML(group){
   const {info,rows}=group,expanded=klState.more.has(info.groupId),ordered=[...rows].sort((a,b)=>klCompareReports(a.item,b.item)),shown=expanded?ordered:ordered.slice(0,3);
   return `<article class="kl-job-card" ${klDragAttrs('group',info.groupId)}><div class="kl-job-head"><div><h4>${esc(info.groupName)}</h4><p>${esc(klCategoryName(info.categoryId))} · ${rows.length} 份报告</p></div>${klButton('调整分组','group-edit',info.groupId)}</div>${shown.map(({item:r,info:i})=>{
-    const score=r.report?.totalScore;return `<div class="kl-round" data-kl-report-id="${esc(r.id)}" ${klDragAttrs('report',r.id)}><div class="kl-round-top">${klCheckbox(r.id)}<strong>${esc(i.round||'轮次未标注')}</strong><span class="kl-score">${typeof score==='number'&&Number.isFinite(score)?esc(score)+'分':'未评分'}</span></div><div class="kl-report-name">${esc(r.name||'复盘报告')}</div><div class="kl-round-foot"><span>${esc(r.date||'日期未记录')}</span><span class="kl-badge ${i.manual?'manual':''}">${i.manual?'手动分类':i.categoryId===KL_UNFILED?'未分类':'自动归类'}</span>${klButton('查看报告','view-report',r.id)}<details class="kl-menu"><summary aria-label="报告操作">⋯</summary><div>${klButton('调整分类','assign',r.id)}${klButton('删除','delete-report',r.id)}</div></details></div></div>`;
+    const score=r.report?.totalScore;return `<div class="kl-round" data-kl-report-id="${esc(r.id)}" ${klDragAttrs('report',r.id)}><div class="kl-round-top">${klCheckbox(r.id)}<strong>${esc(i.round||'轮次未标注')}</strong><span class="kl-score">${typeof score==='number'&&Number.isFinite(score)?esc(score)+'分':'未评分'}</span></div><div class="kl-report-name">${esc(r.name||'复盘报告')}</div><div class="kl-round-foot"><span>${esc(r.date||'日期未记录')}</span><span class="kl-badge ${i.manual?'manual':''}">${i.manual?'手动分类':i.categoryId===KL_UNFILED?'未分类':'自动归类'}</span>${klButton('查看报告','view-report',r.id)}${klButton('修改关联岗位','correct-report',r.id)}<details class="kl-menu"><summary aria-label="报告操作">⋯</summary><div>${klButton('调整分类','assign',r.id)}${klButton('删除','delete-report',r.id)}</div></details></div></div>`;
   }).join('')}${ordered.length>3?'<div class="kl-card-foot">'+klButton(expanded?'收起更多轮次':'展开全部轮次（'+ordered.length+'）','more',info.groupId)+'</div>':''}</article>`;
 }
 function klRenderRealQuestions(){klRender();}
@@ -7577,7 +7640,7 @@ function klApplyTree(){$('knowledgeLibrary').querySelector('.kl-workspace').clas
 function klSelectPage(){klState.visible.forEach(id=>klState.selected.add(id));klRender();}
 function klClearSelection(){klState.selected.clear();klRender();}
 function klAddQuestion(){const g=klGroups().find(g=>g.id===klView().group);openAddQuestion(g?.role||'',g?.company||'');}
-function klOpenDialog(title,html){klLastFocus=document.activeElement;$('klDialogTitle').textContent=title;$('klDialogBody').innerHTML=html;if(!$('klDialog').open)$('klDialog').showModal();}
+function klOpenDialog(title,html){klLastFocus=document.activeElement;const dialog=$('klDialog');if(dialog.parentElement!==document.body)document.body.appendChild(dialog);$('klDialogTitle').textContent=title;$('klDialogBody').innerHTML=html;if(!$('klDialog').open)$('klDialog').showModal();}
 function klCloseDialog(){$('klDialog').close();klDialogContext=null;klLastFocus?.focus?.({preventScroll:true});}
 function klCategoryOptions(selected,all=false){return (all?'<option value="all">全部分类</option>':'')+[...Object.entries(klCategories()).map(([id,c])=>({id,name:c.name})),{id:KL_UNFILED,name:'未分类'}].map(c=>`<option value="${esc(c.id)}" ${c.id===selected?'selected':''}>${esc(c.name)}</option>`).join('');}
 function klOpenAssign(id){
@@ -7645,6 +7708,7 @@ function klHandleClick(e){
   else if(action==='delete-question'){if(confirm('确定删除这道收藏真题吗？'))removeRealQ(id);}
   else if(action==='delete-report')deleteSavedReviewReport(id);
   else if(action==='view-report')klViewReport(id);
+  else if(action==='correct-report'){editReviewJob(id);}
   else if(action==='assign')klOpenAssign(id);
   else if(action==='category-edit')klEditCategory(id);
   else if(action==='group-edit')klEditGroup(id);
